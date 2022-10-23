@@ -7,9 +7,8 @@ import java.io.FileNotFoundException;
 public class project2
 {
 
-    public static double[][] getMatrix()
+    public static double[][] getMatrix(Scanner scan)
     {
-        Scanner scan = new Scanner(System.in);
         int matrixSize = 0;
         while (matrixSize < 1 || matrixSize > 10)
         {
@@ -56,9 +55,8 @@ public class project2
         System.out.println();
     }
 
-    public static void jacobi(double[][] matrix)
+    public static void jacobi(double[][] matrix, Scanner scanner)
     {
-        Scanner scanner = new Scanner(System.in);
         double[][] theMatrix = matrix;
         double[] solution = new double[theMatrix.length];
         boolean isDiagonal = true;
@@ -140,8 +138,8 @@ public class project2
        //Get user matrix
        if (theInput == 1)
        {
-            double[][] test = getMatrix();
-            jacobi(test);
+            double[][] test = getMatrix(input);
+            jacobi(test, input);
         
        }
        //Read file
