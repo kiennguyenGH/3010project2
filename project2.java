@@ -150,61 +150,77 @@ public class project2
 
     public static void main(String[] args)
     {
-       Scanner input = new Scanner(System.in);
-       int theInput = 0;
-       while (theInput != 1 && theInput != 2)
-       {
-            System.out.println("Enter:\n1. To input the equations\n2. To read from a file");
+        Scanner input = new Scanner(System.in);
+
+        int theInput = 0;
+        while (theInput != 1 && theInput != 2)
+        {
+            System.out.println("Enter:\n1. Jacobi's Method\n2. Gauss-Seidel Method");
             theInput = input.nextInt();
-            // input.nextLine();
             if (theInput != 1 && theInput != 2)
             {
                 System.out.println("Invalid input");
             }
-       }
-       System.out.println();
-       
-       //Get user matrix
+        }
+        
+        // Jacobi
        if (theInput == 1)
        {
-            double[][] test = getMatrix(input);
-            jacobi(test, input);
-        
-       }
-       //Read file
-       else
-       {
-            System.out.println("Enter the name of the file: ");
-            String fileName = input.nextLine();
-            double[][] test;
-            try {
-                File file = new File(fileName);
-                Scanner fileReader = new Scanner(file);
-                String[] array = fileReader.nextLine().split("\\s+");
-                test = new double[array.length-1][array.length];
-                int count = 0;
-                for (int i = 0; i < array.length; i++)
-                {
-                    test[count][i] = Double.parseDouble(array[i]);
-                }
-                count++;
-                while(fileReader.hasNextLine())
-                {
-                    array = fileReader.nextLine().split("\\s+");
-                    for (int i = 0; i < array.length; i++)
-                    {
-                        test[count][i] = Double.parseDouble(array[i]);
-                    }
-                    count++;
-                }
-                // computeGaussian(test);
-                fileReader.close();
-            } catch (FileNotFoundException e) {
-                System.out.println("File not found.");
+            theInput = 0;
+            while (theInput != 1 && theInput != 2)
+            {
+                 System.out.println("Enter:\n1. To input the equations\n2. To read from a file");
+                 theInput = input.nextInt();
+                 // input.nextLine();
+                 if (theInput != 1 && theInput != 2)
+                 {
+                     System.out.println("Invalid input");
+                 }
             }
+            System.out.println();
             
-
+            //Get user matrix
+            if (theInput == 1)
+            {
+                 double[][] test = getMatrix(input);
+                 jacobi(test, input);
+             
+            }
+            //Read file
+            else
+            {
+                 System.out.println("Enter the name of the file: ");
+                 String fileName = input.nextLine();
+                 double[][] test;
+                 try {
+                     File file = new File(fileName);
+                     Scanner fileReader = new Scanner(file);
+                     String[] array = fileReader.nextLine().split("\\s+");
+                     test = new double[array.length-1][array.length];
+                     int count = 0;
+                     for (int i = 0; i < array.length; i++)
+                     {
+                         test[count][i] = Double.parseDouble(array[i]);
+                     }
+                     count++;
+                     while(fileReader.hasNextLine())
+                     {
+                         array = fileReader.nextLine().split("\\s+");
+                         for (int i = 0; i < array.length; i++)
+                         {
+                             test[count][i] = Double.parseDouble(array[i]);
+                         }
+                         count++;
+                     }
+                     jacobi(test, input);
+                     fileReader.close();
+                 } catch (FileNotFoundException e) {
+                     System.out.println("File not found.");
+                 }
+            }
        }
+
+
        input.close();
     }
 }
