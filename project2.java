@@ -7,6 +7,23 @@ import java.io.FileNotFoundException;
 public class project2
 {
 
+    public static double EuclideanNorm(double[] array, double[] array2)
+    {
+        double norm = 0;
+        double norm2 = 0;
+        for (int i = 0; i < array.length; i++)
+        {
+            norm += Math.pow((array[i] - array2[i]), 2);
+        }
+        for (int i = 0; i < array.length; i++)
+        {
+            norm2 += Math.pow(array[i], 2);
+        }
+        norm = Math.sqrt(norm);
+        norm2 = Math.sqrt(norm2);
+        return (norm/norm2);
+    }
+
     public static double[][] getMatrix(Scanner scan)
     {
         int matrixSize = 0;
@@ -48,10 +65,12 @@ public class project2
 
     public static void printArray(double[] array)
     {
+        System.out.print("[ ");
         for (int i = 0; i < array.length; i++)
         {
             System.out.print(array[i] + " ");
         }
+        System.out.print("]");
         System.out.println();
     }
 
@@ -88,12 +107,12 @@ public class project2
             String input = scanner.nextLine();
             String[] split = input.split("\\s+");
             System.out.println("Enter the desired stopping error: ");
-            // double stoppingError = scanner.nextDouble();
+            double stoppingError = scanner.nextDouble();
             for (int i = 0; i < solution.length; i++)
             {
                 solution[i] = Double.parseDouble(split[i]);
             }
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 50; i++)
             {
                 double[] solution2 = solution.clone();
                 
@@ -120,6 +139,10 @@ public class project2
                 }
                 
                 printArray(solution);
+                if (EuclideanNorm(solution, solution2) < stoppingError)
+                {
+                    break;
+                }
             }
             
         }
