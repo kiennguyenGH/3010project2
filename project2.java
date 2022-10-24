@@ -106,6 +106,13 @@ public class project2
             System.out.println("Enter the starting solution: ");
             String input = scanner.nextLine();
             String[] split = input.split("\\s+");
+            while (split.length != theMatrix.length)
+            {
+                System.out.println("Invalid input");
+                System.out.println("Enter the starting solution: ");
+                input = scanner.nextLine();
+                split = input.split("\\s+");
+            }
             System.out.println("Enter the desired stopping error: ");
             double stoppingError = scanner.nextDouble();
             for (int i = 0; i < solution.length; i++)
@@ -180,6 +187,13 @@ public class project2
             System.out.println("Enter the starting solution: ");
             String input = scanner.nextLine();
             String[] split = input.split("\\s+");
+            while (split.length != theMatrix.length)
+            {
+                System.out.println("Invalid input");
+                System.out.println("Enter the starting solution: ");
+                input = scanner.nextLine();
+                split = input.split("\\s+");
+            }
             System.out.println("Enter the desired stopping error: ");
             double stoppingError = scanner.nextDouble();
             for (int i = 0; i < solution.length; i++)
