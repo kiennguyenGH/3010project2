@@ -254,7 +254,7 @@ public class project2
             {
                  System.out.println("Enter:\n1. To input the equations\n2. To read from a file");
                  theInput = input.nextInt();
-                 // input.nextLine();
+                 input.nextLine();
                  if (theInput != 1 && theInput != 2)
                  {
                      System.out.println("Invalid input");
@@ -309,7 +309,7 @@ public class project2
             {
                  System.out.println("Enter:\n1. To input the equations\n2. To read from a file");
                  theInput = input.nextInt();
-                 // input.nextLine();
+                 input.nextLine();
                  if (theInput != 1 && theInput != 2)
                  {
                      System.out.println("Invalid input");
