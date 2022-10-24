@@ -148,6 +148,75 @@ public class project2
         }
     }
 
+    public static void GaussSeidel(double[][] matrix, Scanner scanner)
+    {
+        double[][] theMatrix = matrix;
+        double[] solution = new double[theMatrix.length];
+        boolean isDiagonal = true;
+        for (int i = 0; i < theMatrix.length; i++)
+        {
+            double sum = 0;
+            for(int k = 0; k < theMatrix[i].length-1; k++)
+            {
+                if (k == i)
+                {
+                    continue;
+                }
+                else
+                {
+                    sum += Math.abs(theMatrix[i][k]);
+                }
+            }
+            if (sum > theMatrix[i][i])
+            {
+                isDiagonal = false;
+                System.out.println("Cannot perform Gauss-Seidel Method: Matrix is not diagonally dominant");
+                break;
+            }
+        }
+        if (isDiagonal)
+        {
+            
+            System.out.println("Enter the starting solution: ");
+            String input = scanner.nextLine();
+            String[] split = input.split("\\s+");
+            System.out.println("Enter the desired stopping error: ");
+            double stoppingError = scanner.nextDouble();
+            for (int i = 0; i < solution.length; i++)
+            {
+                solution[i] = Double.parseDouble(split[i]);
+            }
+            for (int i = 0; i < 50; i++)
+            {
+                double[] solution2 = solution.clone();
+                
+                //Compute x values for each iteration
+                for (int k = 0; k < solution.length; k++)
+                {
+                    double sum = theMatrix[k][theMatrix.length];
+                    //Calculate sum
+                    for (int j = 0; j < solution.length; j++)
+                    {
+                        if (k != j)
+                        {
+                            sum = (sum - (solution[j] * theMatrix[k][j]));
+                        }
+                        
+                    }
+                    solution[k] = (sum/theMatrix[k][k]);
+
+                }
+                
+                printArray(solution);
+                if (EuclideanNorm(solution, solution2) < stoppingError)
+                {
+                    break;
+                }
+            }
+            
+        }
+    }
+
     public static void main(String[] args)
     {
         Scanner input = new Scanner(System.in);
@@ -213,6 +282,61 @@ public class project2
                          count++;
                      }
                      jacobi(test, input);
+                     fileReader.close();
+                 } catch (FileNotFoundException e) {
+                     System.out.println("File not found.");
+                 }
+            }
+       }
+       else
+       {
+            theInput = 0;
+            while (theInput != 1 && theInput != 2)
+            {
+                 System.out.println("Enter:\n1. To input the equations\n2. To read from a file");
+                 theInput = input.nextInt();
+                 // input.nextLine();
+                 if (theInput != 1 && theInput != 2)
+                 {
+                     System.out.println("Invalid input");
+                 }
+            }
+            System.out.println();
+            
+            //Get user matrix
+            if (theInput == 1)
+            {
+                 double[][] test = getMatrix(input);
+                 GaussSeidel(test, input);
+             
+            }
+            //Read file
+            else
+            {
+                 System.out.println("Enter the name of the file: ");
+                 String fileName = input.nextLine();
+                 double[][] test;
+                 try {
+                     File file = new File(fileName);
+                     Scanner fileReader = new Scanner(file);
+                     String[] array = fileReader.nextLine().split("\\s+");
+                     test = new double[array.length-1][array.length];
+                     int count = 0;
+                     for (int i = 0; i < array.length; i++)
+                     {
+                         test[count][i] = Double.parseDouble(array[i]);
+                     }
+                     count++;
+                     while(fileReader.hasNextLine())
+                     {
+                         array = fileReader.nextLine().split("\\s+");
+                         for (int i = 0; i < array.length; i++)
+                         {
+                             test[count][i] = Double.parseDouble(array[i]);
+                         }
+                         count++;
+                     }
+                     GaussSeidel(test, input);
                      fileReader.close();
                  } catch (FileNotFoundException e) {
                      System.out.println("File not found.");
