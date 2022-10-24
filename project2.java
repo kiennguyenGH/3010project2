@@ -86,37 +86,43 @@ public class project2
             
             System.out.println("Enter the starting solution: ");
             String input = scanner.nextLine();
-            // while (scan.hasNextLine())
-            // {
-            //     input = scan.nextLine();
-            // }
             String[] split = input.split("\\s+");
             System.out.println("Enter the desired stopping error: ");
-            double stoppingError = scanner.nextDouble();
+            // double stoppingError = scanner.nextDouble();
             for (int i = 0; i < solution.length; i++)
             {
                 solution[i] = Double.parseDouble(split[i]);
             }
-            for (int i = 0; i < 50; i++)
+            for (int i = 0; i < 5; i++)
             {
+                double[] solution2 = solution.clone();
                 
+                //Compute x values for each iteration
                 for (int k = 0; k < solution.length; k++)
                 {
-                    double sum = 0;
-                    for (int j = 0; j < theMatrix[k].length-1; j++)
+                    double sum = theMatrix[k][theMatrix.length];
+                    // int count = 0;
+                    //Calculate sum
+                    for (int j = 0; j < solution.length; j++)
                     {
                         if (k != j)
                         {
-                            sum += (theMatrix[k][j] * solution[j]);
+                            // System.out.println(sum + " " + solution2[j] + " " + theMatrix[k][j]);
+                            sum = (sum - (solution2[j] * theMatrix[k][j]));
+                            // count++; 
                         }
+                        
                     }
-                    solution[k] = (theMatrix[k][theMatrix[k].length-1] - sum) / theMatrix[k][k];
+                    // System.out.println(sum);
+                    solution[k] = (sum/theMatrix[k][k]);
+                    
+                    // System.out.println(sum);
                 }
+                
                 printArray(solution);
             }
             
         }
-        // scanner.close();
     }
 
     public static void main(String[] args)
